@@ -1,0 +1,617 @@
+{ "frames": {
+   "bill3D 0.ase": {
+    "frame": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 1.ase": {
+    "frame": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 2.ase": {
+    "frame": { "x": 63, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 3.ase": {
+    "frame": { "x": 126, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 4.ase": {
+    "frame": { "x": 189, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 5.ase": {
+    "frame": { "x": 252, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 6.ase": {
+    "frame": { "x": 315, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 7.ase": {
+    "frame": { "x": 378, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 8.ase": {
+    "frame": { "x": 441, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 9.ase": {
+    "frame": { "x": 504, "y": 0, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 10.ase": {
+    "frame": { "x": 0, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 11.ase": {
+    "frame": { "x": 63, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 12.ase": {
+    "frame": { "x": 126, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 13.ase": {
+    "frame": { "x": 189, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 14.ase": {
+    "frame": { "x": 252, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 15.ase": {
+    "frame": { "x": 315, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 16.ase": {
+    "frame": { "x": 378, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 17.ase": {
+    "frame": { "x": 441, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 18.ase": {
+    "frame": { "x": 504, "y": 46, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 19.ase": {
+    "frame": { "x": 0, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 20.ase": {
+    "frame": { "x": 63, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 21.ase": {
+    "frame": { "x": 126, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 22.ase": {
+    "frame": { "x": 189, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 23.ase": {
+    "frame": { "x": 252, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 24.ase": {
+    "frame": { "x": 315, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 25.ase": {
+    "frame": { "x": 378, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 26.ase": {
+    "frame": { "x": 441, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 27.ase": {
+    "frame": { "x": 504, "y": 92, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 28.ase": {
+    "frame": { "x": 0, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 29.ase": {
+    "frame": { "x": 63, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 30.ase": {
+    "frame": { "x": 126, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 31.ase": {
+    "frame": { "x": 189, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 32.ase": {
+    "frame": { "x": 252, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 33.ase": {
+    "frame": { "x": 315, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 34.ase": {
+    "frame": { "x": 378, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 35.ase": {
+    "frame": { "x": 441, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 36.ase": {
+    "frame": { "x": 504, "y": 138, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 37.ase": {
+    "frame": { "x": 0, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 38.ase": {
+    "frame": { "x": 63, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 39.ase": {
+    "frame": { "x": 126, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 40.ase": {
+    "frame": { "x": 189, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 41.ase": {
+    "frame": { "x": 252, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 42.ase": {
+    "frame": { "x": 315, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 43.ase": {
+    "frame": { "x": 378, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 44.ase": {
+    "frame": { "x": 441, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 45.ase": {
+    "frame": { "x": 504, "y": 184, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 46.ase": {
+    "frame": { "x": 0, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 47.ase": {
+    "frame": { "x": 63, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 48.ase": {
+    "frame": { "x": 126, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 49.ase": {
+    "frame": { "x": 189, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 50.ase": {
+    "frame": { "x": 252, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 51.ase": {
+    "frame": { "x": 315, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 52.ase": {
+    "frame": { "x": 378, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 53.ase": {
+    "frame": { "x": 441, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 54.ase": {
+    "frame": { "x": 504, "y": 230, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 55.ase": {
+    "frame": { "x": 0, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 56.ase": {
+    "frame": { "x": 63, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 57.ase": {
+    "frame": { "x": 126, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 58.ase": {
+    "frame": { "x": 189, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 59.ase": {
+    "frame": { "x": 252, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 60.ase": {
+    "frame": { "x": 315, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 61.ase": {
+    "frame": { "x": 378, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 62.ase": {
+    "frame": { "x": 441, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 63.ase": {
+    "frame": { "x": 504, "y": 276, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 64.ase": {
+    "frame": { "x": 0, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 65.ase": {
+    "frame": { "x": 63, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 66.ase": {
+    "frame": { "x": 126, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 67.ase": {
+    "frame": { "x": 189, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 68.ase": {
+    "frame": { "x": 252, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 69.ase": {
+    "frame": { "x": 315, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 70.ase": {
+    "frame": { "x": 378, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 71.ase": {
+    "frame": { "x": 441, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 72.ase": {
+    "frame": { "x": 504, "y": 322, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 73.ase": {
+    "frame": { "x": 0, "y": 368, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   },
+   "bill3D 74.ase": {
+    "frame": { "x": 63, "y": 368, "w": 63, "h": 46 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 63, "h": 46 },
+    "sourceSize": { "w": 63, "h": 46 },
+    "duration": 7
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-dev",
+  "format": "I8",
+  "size": { "w": 567, "h": 414 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 0", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
