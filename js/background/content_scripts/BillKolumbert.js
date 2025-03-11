@@ -12,7 +12,6 @@ let CAN_DANCE = [
     "soundcloud.com",
     "music.apple.com"
 ]
-
 class Bill {
     x = 25;
     y = window.innerHeight / 2;
@@ -34,7 +33,7 @@ class Bill {
     physThread = -1;
     transitionFunction = "";
     constructor(div) {
-        this.elem.src = chrome.runtime.getURL("assets/images/bill.png");
+        this.elem.src = browser.runtime.getURL("assets/images/bill.png");
         this.elem.draggable = false;
         this.elem.width = 100;
         this.elem.style.position = "fixed";
@@ -42,7 +41,7 @@ class Bill {
         this.elem.style.imageRendering = "pixelated";
         this.transitionFunction = "translate calc(1000ms/30) linear";
         // use gpu to render
-        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg)";
+        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg) skewX(0.001deg)";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
         this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
@@ -62,6 +61,8 @@ class Bill {
                 this.my += ev.movementY;
             });
         }
+        // Move bill with scroll
+        this.lsy = window.scrollY;
         window.addEventListener("scroll", (ev) => {
             this.sy = window.scrollY - this.lsy;
             this.lsy = window.scrollY;
@@ -69,6 +70,7 @@ class Bill {
         })
         window.addEventListener("mouseup", (ev) => {
             window.clearInterval(this.physThread);
+            window.clearTimeout(this.physThread);
             if (this.isDragging) {
                 this.physX = this.x;
                 this.physY = this.y;
@@ -77,6 +79,17 @@ class Bill {
             this.updatePhysics();
             this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
         });
+        // shitty workaround because firefox hates set interval
+        if (!("chrome" in window)) {
+            this.elem.addEventListener("transitionend", (ev) => {
+                window.clearInterval(this.physThread);
+                window.clearTimeout(this.physThread);
+                // 40 because otherwise physics are too fast
+                // firefox i beg you PLEASE fix your timing stuff
+                this.physThread = window.setTimeout(() => { this.updatePhysics() }, 1000 / 40)
+                this.updatePhysics();
+            });
+        }
         this.pos();
     }
     update(elapsed) {
@@ -120,8 +133,14 @@ class Bill {
     setDragging(b) {
         if (b != this.isDragging) {
             this.elem.style.transition = b ? "" : this.transitionFunction;
+            // firefox fix AGAIn ffs
+            if (b && !("chrome" in window)){
+                window.clearInterval(this.physThread);
+                window.clearTimeout(this.physThread);
+                this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
+            }
             if (!this.isDance) {
-                this.elem.src = b ? chrome.runtime.getURL("assets/images/bill-glow.png") : chrome.runtime.getURL("assets/images/bill.png");
+                this.elem.src = b ? browser.runtime.getURL("assets/images/bill-glow.png") : browser.runtime.getURL("assets/images/bill.png");
             }
         }
         if (b == true) {
@@ -141,11 +160,11 @@ class Bill {
         }
         if (b != this.isDance) {
             if (b == true) {
-                this.elem.src = chrome.runtime.getURL("assets/images/bill3d.gif");
+                this.elem.src = browser.runtime.getURL("assets/images/bill3d.gif");
                 this.gravity += 20;
             }
             else {
-                this.elem.src = chrome.runtime.getURL("assets/images/bill.png");
+                this.elem.src = browser.runtime.getURL("assets/images/bill.png");
             }
         }
         this.isDance = b;
@@ -284,7 +303,7 @@ function update() {
         document.body.appendChild(div);
     }
     (async () => {
-        const response = await chrome.runtime.sendMessage({ request: "audio" });
+        const response = await browser.runtime.sendMessage({ request: "audio" });
         // do something with response here, not outside the function
         AUDIO_PLAYING = response.result;
     })();
