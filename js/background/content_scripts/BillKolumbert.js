@@ -32,6 +32,7 @@ class Bill {
     lsy = 0;
     sy = 0;
     physThread = -1;
+    transitionFunction = "";
     constructor(div) {
         this.elem.src = chrome.runtime.getURL("assets/images/bill.png");
         this.elem.draggable = false;
@@ -39,6 +40,8 @@ class Bill {
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
+        this.transitionFunction = "translate 33.3333333333333333333333333333333333ms linear";
+        this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
         this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
         document.addEventListener("mousemove", (ev) => {
@@ -77,11 +80,9 @@ class Bill {
         if (!this.isDragging) {
             this.x = this.physX;
             this.y = this.physY;
-            this.elem.style.transition = "left 33.3333ms linear, top 33.3333ms linear";
         }
         else {
             this.dragUpdate(this.px, this.py, this.mx, this.my);
-            this.elem.style.transition = "";
         }
         if (this.isDead) {
             this.angle = 0;
@@ -99,13 +100,16 @@ class Bill {
         this.my = 0;
 
         this.setDance(AUDIO_PLAYING);
-        
+
     }
 
 
     setDragging(b) {
-        if (b != this.isDragging && !this.isDance) {
-            this.elem.src = b ? chrome.runtime.getURL("assets/images/bill-glow.png") : chrome.runtime.getURL("assets/images/bill.png");
+        if (b != this.isDragging) {
+            this.elem.style.transition = b ? "" : this.transitionFunction;
+            if (!this.isDance) {
+                this.elem.src = b ? chrome.runtime.getURL("assets/images/bill-glow.png") : chrome.runtime.getURL("assets/images/bill.png");
+            }
         }
         if (b == true) {
             this.isDead = false;
@@ -220,21 +224,23 @@ class Bill {
     animate() {
         this.elem.style.rotate = this.angle + "deg";
         if (this.isDead) {
-            this.elem.style.transform = "scale(1.0,0.2) translateY(100px)";
+            this.elem.style.transform = "scale(1.0, 0.2) rotate3d(0,0,0,0deg)";
         }
         else {
             if (this.isDance) {
-                this.elem.style.transform = "scale(1.5,1.5) translate(0px, 0px)";
+                this.elem.style.transform = "scale(1.5, 1.5) rotate3d(0,0,0,0deg)";
             }
             else {
-                this.elem.style.transform = "scale(1.0,1.0) translate(0px, 0px)";
+                this.elem.style.transform = "scale(1.0, 1.0) rotate3d(0,0,0,0deg)";
             }
         }
     }
 
     pos() {
-        this.elem.style.left = this.x + "px";
-        this.elem.style.top = (this.y + ((this.isDead || this.isDance) ? 15 : 0)) + "px";
+        this.elem.style.willChange = "translate";
+        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead || this.isDance ? 35 : 0)) + "px"; 
+        //this.elem.style.left = this.x + "px";
+        //this.elem.style.top = (this.y + ((this.isDead || this.isDance) ? 15 : 0)) + "px";
     }
 }
 
