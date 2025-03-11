@@ -14,11 +14,11 @@ let CAN_DANCE = [
 ]
 
 class Bill {
-    x = 0;
-    y = 0;
+    x = 25;
+    y = window.innerHeight / 2;
     angle = 0;
-    physX = 0;
-    physY = 0;
+    physX = this.x;
+    physY = this.y;
     gravity = 0;
     speed = 0;
     isDragging = false;
@@ -40,17 +40,28 @@ class Bill {
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
-        this.transitionFunction = "translate 33.333333ms linear";
-        this.elem.style.transform = "rotate3d(0)";
+        this.transitionFunction = "translate calc(1000ms/30) linear";
+        // use gpu to render
+        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg)";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
         this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
-        document.addEventListener("mousemove", (ev) => {
-            this.px = ev.x;
-            this.py = ev.y;
-            this.mx += ev.movementX;
-            this.my += ev.movementY;
-        });
+        if ("onpointerrawupdate" in window) {
+            document.addEventListener("pointerrawupdate", (ev) => {
+                this.px = ev.x;
+                this.py = ev.y;
+                this.mx += ev.movementX;
+                this.my += ev.movementY;
+            });
+        }
+        else {
+            document.addEventListener("mousemove", (ev) => {
+                this.px = ev.x;
+                this.py = ev.y;
+                this.mx += ev.movementX;
+                this.my += ev.movementY;
+            });
+        }
         window.addEventListener("scroll", (ev) => {
             this.sy = window.scrollY - this.lsy;
             this.lsy = window.scrollY;
@@ -66,6 +77,7 @@ class Bill {
             this.updatePhysics();
             this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
         });
+        this.pos();
     }
     update(elapsed) {
         if (this.elem.matches(':hover')) {
@@ -179,7 +191,7 @@ class Bill {
         this.physY += -this.gravity;
 
         if (!this.isDragging) {
-            this.pos();
+            requestAnimationFrame(() => { this.pos() });
 
             this.floorCheck();
             this.wallCheck();
@@ -223,7 +235,8 @@ class Bill {
     }
 
     animate() {
-        this.elem.style.rotate = this.angle + "deg";
+        let rounded = Math.round((this.angle + Number.EPSILON) * 1000) / 1000;
+        this.elem.style.rotate = rounded + "deg";
         if (this.isDead) {
             this.elem.style.scale = "1.0 0.2";
         }
@@ -239,15 +252,12 @@ class Bill {
 
     pos() {
         this.elem.style.willChange = "translate";
-        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead || this.isDance ? 35 : 0)) + "px"; 
-        //this.elem.style.left = this.x + "px";
-        //this.elem.style.top = (this.y + ((this.isDead || this.isDance) ? 15 : 0)) + "px";
+        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead || this.isDance ? 35 : 0)) + "px";
     }
 }
 
 let div = document.createElement("div");
 createCanvas();
-
 
 function createCanvas() {
     div.style.position = "fixed";
@@ -258,16 +268,6 @@ function createCanvas() {
     div.style.margin = "0px";
     div.style.padding = "0px";
     document.body.appendChild(div);
-
-    let style = document.createElement("style");
-    style.innerText = `
-    @keyframes play {
-        0% { background-position: 0px; }
-        100% { background-position: 4662px; }
-    }
-    `;
-    div.appendChild(style);
-
     createBill();
 }
 
