@@ -5,8 +5,23 @@ const PHYSICS = {
     WALL_BOUNCE_MULTIPLIER: 1.1,
 }
 
+function audio(s) {
+    let audio = new Audio(browser.runtime.getURL("/assets/sounds/collision/" + s + ".wav"));
+    audio.crossOrigin = 'anonymous';
+    audio.load();
+    return audio;
+}
+
+const SOUND_SPLAT = audio("splat");
+const SOUND_BOING = audio("boing");
+
+const SOUNDS_WALL = [audio("wall1"), audio("wall2"), audio("wall3"), audio("wall4"), audio("wall5")];
+const SOUNDS_SLAM = [audio("slam1"), audio("slam2"), audio("slam3"), audio("slam4")];
+
+
 let SETTINGS = {
     CAN_SPLAT: false,
+    COLLISION_PLAYS_SOUND: true,
 }
 
 function load() {
@@ -15,9 +30,9 @@ function load() {
             save();
         }
         else {
-            SETTINGS = obj.SETTINGS;
+            SETTINGS.CAN_SPLAT = obj.SETTINGS.CAN_SPLAT != undefined ? obj.SETTINGS.CAN_SPLAT : false;
+            SETTINGS.COLLISION_PLAYS_SOUND = obj.SETTINGS.COLLISION_PLAYS_SOUND != undefined ? obj.SETTINGS.COLLISION_PLAYS_SOUND : true;
         }
-        can_splat_checkbox.checked = SETTINGS.CAN_SPLAT;
     });
 }
 
@@ -87,10 +102,12 @@ class Bill {
         // Move bill with scroll
         this.lsy = window.scrollY;
         window.addEventListener("scroll", (ev) => {
-            this.sy = window.scrollY - this.lsy;
-            this.lsy = window.scrollY;
-            this.physY -= this.sy;
-         //   this.gravity += 0 > this.sy ? (this.sy / 2) : (this.sy / 30);
+            if (!this.isDead) {
+                this.sy = window.scrollY - this.lsy;
+                this.lsy = window.scrollY;
+                this.physY -= this.sy;
+            }
+            //   this.gravity += 0 > this.sy ? (this.sy / 2) : (this.sy / 30);
         })
         window.addEventListener("mouseup", (ev) => {
             window.clearInterval(this.physThread);
@@ -152,12 +169,11 @@ class Bill {
 
     }
 
-
     setDragging(b) {
         if (b != this.isDragging) {
             this.elem.style.transition = b ? "" : this.transitionFunction;
             // firefox fix AGAIn ffs
-            if (b && !("chrome" in window)){
+            if (b && !("chrome" in window)) {
                 window.clearInterval(this.physThread);
                 window.clearTimeout(this.physThread);
                 this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
@@ -196,8 +212,12 @@ class Bill {
     dragUpdate(cursorX, cursorY, deltaX, deltaY) {
         this.x = cursorX - 50;
         this.y = cursorY - 50;
-        if (this.y + 100 > window.innerHeight) {
-            this.y = window.innerHeight - 100;
+
+        // using clientHeight instead of window.innerWidth to account
+        // for scroll bars
+
+        if (this.y + 100 > document.documentElement.clientHeight) {
+            this.y = document.documentElement.clientHeight - 100;
         }
 
         if (0 >= this.y) {
@@ -206,8 +226,8 @@ class Bill {
 
         if (0 >= this.x - 1) {
             this.x = 0;
-        } else if (this.x + 100 >= window.innerWidth) {
-            this.x = window.innerWidth - 100;
+        } else if (this.x + 100 >= document.documentElement.clientWidth) {
+            this.x = document.documentElement.clientWidth - 100;
         }
 
         if (!(Math.abs(deltaY) > Math.abs(deltaX))) {
@@ -239,8 +259,13 @@ class Bill {
             this.wallCheck();
         }
         if (0 > this.physY) {
-            this.physY = 0;
+            this.physY = 1;
             this.gravity = -this.gravity;
+            if (SETTINGS.COLLISION_PLAYS_SOUND) {
+                let sound = SOUNDS_WALL[Math.floor(Math.random() * SOUNDS_WALL.length)];
+                sound.currentTime = 0;
+                sound.play();
+            }
         }
 
     }
@@ -254,9 +279,17 @@ class Bill {
         if (!(this.isDance) && SETTINGS.CAN_SPLAT && (Math.abs(this.gravity) + Math.abs(this.speed)) > 40.5) {
             this.splat();
         }
+        if (SETTINGS.COLLISION_PLAYS_SOUND && !this.isDead && Math.abs(this.gravity) > 6) {
+            SOUND_BOING.currentTime = 0;
+            SOUND_BOING.play();
+        }
         this.gravity = -(this.gravity * PHYSICS.FLOOR_ENERGY_TRANSFER);
     }
     splat() {
+        if (SETTINGS.COLLISION_PLAYS_SOUND) {
+            SOUND_SPLAT.currentTime = 0;
+            SOUND_SPLAT.play();
+        }
         this.speed /= 6;
         this.speed += this.speed > 0 ? 4 : -4;
         this.gravity = 0;
@@ -264,7 +297,7 @@ class Bill {
     }
     wallCheck() {
         if (0 >= this.physX - 1) {
-            this.physX = 0;
+            this.physX = 1;
             this.wallCollide();
         } else if (this.physX + 100 >= window.innerWidth) {
             this.physX = window.innerWidth - 100;
@@ -272,6 +305,17 @@ class Bill {
         }
     }
     wallCollide() {
+        if (SETTINGS.COLLISION_PLAYS_SOUND) {
+            let sound;
+            if (Math.abs(this.speed) > 40) {
+                sound = SOUNDS_SLAM[Math.floor(Math.random() * SOUNDS_SLAM.length)];
+            }
+            else {
+                sound = SOUNDS_WALL[Math.floor(Math.random() * SOUNDS_WALL.length)];
+            }
+            sound.currentTime = 0;
+            sound.play();
+        }
         this.speed = -(this.speed * PHYSICS.WALL_BOUNCE_MULTIPLIER);
         this.setDragging(false);
     }

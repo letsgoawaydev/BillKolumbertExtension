@@ -9,7 +9,19 @@
                 "assets/images/bill.png",
                 "assets/images/bill-glow.png",
                 "assets/images/bill3d.gif",
-                "assets/images/bill3D.png"
+                "assets/images/bill3D.png",
+                "assets/sounds/collision/boing.wav",
+                "assets/sounds/collision/crashout.wav",
+                "assets/sounds/collision/slam1.wav",
+                "assets/sounds/collision/slam2.wav",
+                "assets/sounds/collision/slam3.wav",
+                "assets/sounds/collision/slam4.wav",
+                "assets/sounds/collision/splat.wav",
+                "assets/sounds/collision/wall1.wav",
+                "assets/sounds/collision/wall2.wav",
+                "assets/sounds/collision/wall3.wav",
+                "assets/sounds/collision/wall4.wav",
+                "assets/sounds/collision/wall5.wav"
             ],
             "matches": [
                 "*://*/*"

@@ -1,3 +1,8 @@
+let SETTINGS = {
+    CAN_SPLAT: false,
+    COLLISION_PLAYS_SOUND: true,
+}
+
 let can_splat_checkbox = document.getElementById("can_splat");
 
 can_splat_checkbox.addEventListener("change", (ev) => {
@@ -5,9 +10,12 @@ can_splat_checkbox.addEventListener("change", (ev) => {
     this.save();
 });
 
-let SETTINGS = {
-    CAN_SPLAT: false,
-}
+let collision_plays_sound_checkbox = document.getElementById("collision_plays_sound");
+
+collision_plays_sound_checkbox.addEventListener("change", (ev) => {
+    SETTINGS.COLLISION_PLAYS_SOUND = collision_plays_sound_checkbox.checked;
+    this.save();
+});
 
 function load() {
     browser.storage.local.get().then((obj) => {
@@ -15,9 +23,11 @@ function load() {
             save();
         }
         else {
-            SETTINGS = obj.SETTINGS;
+            SETTINGS.CAN_SPLAT = obj.SETTINGS.CAN_SPLAT != undefined ? obj.SETTINGS.CAN_SPLAT : false;
+            SETTINGS.COLLISION_PLAYS_SOUND = obj.SETTINGS.COLLISION_PLAYS_SOUND != undefined ? obj.SETTINGS.COLLISION_PLAYS_SOUND : true;
         }
         can_splat_checkbox.checked = SETTINGS.CAN_SPLAT;
+        collision_plays_sound_checkbox.checked = SETTINGS.COLLISION_PLAYS_SOUND;
     });
 }
 

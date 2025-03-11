@@ -1,4 +1,17 @@
-html, body {
+html,
+body {
     width: 500px;
-    height: 500px;
+    /*height: 500px;*/
+}
+
+@font-face {
+    font-family: "Gooberism";
+    size-adjust: 120%;
+    src:
+        local("BillKolumbertUI"),
+        url("/assets/fonts/BillKolumbertUI.ttf");
+}
+
+* {
+    font-family: "Gooberism";
 }
