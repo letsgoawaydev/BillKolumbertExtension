@@ -3,6 +3,11 @@
     "description": "Bill Kolumbert",
     "version": "1.0",
     "manifest_version": 3,
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "billkolumbert@letsgoaway.dev"
+        }
+    },
     "web_accessible_resources": [
         {
             "resources": [
