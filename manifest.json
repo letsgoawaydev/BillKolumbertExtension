@@ -26,7 +26,8 @@
     "permissions": [
         "scripting",
         "activeTab",
-        "privacy"
+        "privacy",
+        "storage"
     ],
     "icons": {
         "16": "images/icon-16.png",

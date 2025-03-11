@@ -1,6 +1,6 @@
 import '../browser-polyfill.js'
-
 const DEBUG = false;
+
 if (DEBUG) {
     let ws = new WebSocket('ws://devd.io:8000/.devd.livereload');
     ws.onmessage = () => {
@@ -20,11 +20,13 @@ if (DEBUG) {
 }
 const array = new Uint32Array(1);
 self.crypto.getRandomValues(array);
+
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.request === "audio") {
         sendResponse({ result: sender.tab.audible });
     }
 });
+
 browser.scripting.registerContentScripts([{
     id: array.at(1) + "",
     matches: ["*://*/*"],

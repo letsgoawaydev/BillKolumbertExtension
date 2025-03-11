@@ -5,6 +5,25 @@ const PHYSICS = {
     WALL_BOUNCE_MULTIPLIER: 1.1,
 }
 
+let SETTINGS = {
+    CAN_SPLAT: false,
+}
+
+function load() {
+    browser.storage.local.get().then((obj) => {
+        if (Object.keys(obj).indexOf("SETTINGS") == -1) {
+            save();
+        }
+        else {
+            SETTINGS = obj.SETTINGS;
+        }
+        can_splat_checkbox.checked = SETTINGS.CAN_SPLAT;
+    });
+}
+
+this.load();
+
+
 let AUDIO_PLAYING = false;
 
 let CAN_DANCE = [
@@ -34,12 +53,16 @@ class Bill {
     transitionFunction = "";
     constructor(div) {
         this.elem.src = browser.runtime.getURL("assets/images/bill.png");
+        // you can still drag bill, just not the image
         this.elem.draggable = false;
         this.elem.width = 100;
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
+
         this.transitionFunction = "translate calc(1000ms/30) linear";
+        this.pos();
+
         // use gpu to render
         this.elem.style.transform = "rotate3d(0, 0, 0, 0deg) skewX(0.001deg)";
         this.elem.style.transition = this.transitionFunction;
@@ -67,6 +90,7 @@ class Bill {
             this.sy = window.scrollY - this.lsy;
             this.lsy = window.scrollY;
             this.physY -= this.sy;
+         //   this.gravity += 0 > this.sy ? (this.sy / 2) : (this.sy / 30);
         })
         window.addEventListener("mouseup", (ev) => {
             window.clearInterval(this.physThread);
@@ -90,7 +114,6 @@ class Bill {
                 this.updatePhysics();
             });
         }
-        this.pos();
     }
     update(elapsed) {
         if (this.elem.matches(':hover')) {
@@ -228,8 +251,8 @@ class Bill {
         }
     }
     floorCollide() {
-        if ((Math.abs(this.gravity) + Math.abs(this.speed)) > 40.5 && !this.isDance) {
-            //this.splat();
+        if (!(this.isDance) && SETTINGS.CAN_SPLAT && (Math.abs(this.gravity) + Math.abs(this.speed)) > 40.5) {
+            this.splat();
         }
         this.gravity = -(this.gravity * PHYSICS.FLOOR_ENERGY_TRANSFER);
     }
@@ -271,7 +294,7 @@ class Bill {
 
     pos() {
         this.elem.style.willChange = "translate";
-        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead || this.isDance ? 35 : 0)) + "px";
+        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 35 : (this.isDance ? 15 : -8))) + "px";
     }
 }
 
