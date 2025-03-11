@@ -40,7 +40,8 @@ class Bill {
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
-        this.transitionFunction = "translate 33.33333222ms linear";
+        this.transitionFunction = "translate 33.333333ms linear";
+        this.elem.style.transform = "rotate3d(0)";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
         this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
@@ -197,7 +198,7 @@ class Bill {
     }
     floorCollide() {
         if ((Math.abs(this.gravity) + Math.abs(this.speed)) > 40.5 && !this.isDance) {
-            this.splat();
+            //this.splat();
         }
         this.gravity = -(this.gravity * PHYSICS.FLOOR_ENERGY_TRANSFER);
     }
@@ -224,14 +225,14 @@ class Bill {
     animate() {
         this.elem.style.rotate = this.angle + "deg";
         if (this.isDead) {
-            this.elem.style.transform = "scale(1.0, 0.2) rotate3d(0,0,0,0deg)";
+            this.elem.style.scale = "1.0 0.2";
         }
         else {
             if (this.isDance) {
-                this.elem.style.transform = "scale(1.5, 1.5) rotate3d(0,0,0,0deg)";
+                this.elem.style.scale = "1.5 1.5";
             }
             else {
-                this.elem.style.transform = "scale(1.0, 1.0) rotate3d(0,0,0,0deg)";
+                this.elem.style.scale = "1.0 1.0";
             }
         }
     }
