@@ -40,7 +40,7 @@ class Bill {
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
-        this.transitionFunction = "translate 33.3333333333333333333333333333333333ms linear";
+        this.transitionFunction = "translate 33.33333222ms linear";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
         this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
