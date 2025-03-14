@@ -81,11 +81,11 @@ class Bill {
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
 
-        this.transitionFunction = ("chrome" in window) ? "translate calc(1000ms/30) linear" : "all calc(1000ms/30) linear";
+        this.transitionFunction = "transform calc(1000ms/30) linear";
         this.pos();
 
         // use gpu to render
-        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg) skewX(0.00000001deg)";
+        this.elem.style.transform = "skewX(0.0001deg)";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
 
@@ -123,12 +123,24 @@ class Bill {
             this.setDragging(false);
             this.updatePhysics();
         });
+
+        if ("chrome" in window) {
+            this.chromeUpdate();
+        }
     }
+
+    chromeUpdate() {
+        requestAnimationFrame(() => {
+            this.updatePhysics();
+        });
+        window.setTimeout(() => {
+            this.chromeUpdate();
+        }, 1000 / 30);
+    }
+
     timeUntilPhys = 0.00;
 
     update(elapsed) {
-        this.timeUntilPhys += elapsed;
-
         if (this.elem.matches(':hover')) {
             if (this.elem.matches(':active')) {
                 this.elem.style.cursor = "grabbing";
@@ -139,22 +151,19 @@ class Bill {
                 this.setDragging(false);
             }
         }
-        let framesMissed = Math.floor(this.timeUntilPhys / (1 / 30));
-        if (framesMissed > 60) {
-            framesMissed = 60;
-        }
-        if (framesMissed >= 1) {
-            if ("chrome" in window) {
+        if (!("chrome" in window)) {
+            this.timeUntilPhys += elapsed;
+            let framesMissed = Math.floor(this.timeUntilPhys / (1 / 30));
+            if (framesMissed > 60) {
+                framesMissed = 60;
+            }
+            if (framesMissed >= 1) {
                 for (let i = 0; i < framesMissed; i++) {
                     this.updatePhysics();
                 }
+                this.timeUntilPhys = elapsed;
             }
-            else {
-                this.updatePhysics();
-            }
-            this.timeUntilPhys = elapsed;
         }
-
         if (!this.isDragging) {
             this.x = this.physX;
             this.y = this.physY;
@@ -268,9 +277,6 @@ class Bill {
             this.floorCheck();
             this.wallCheck();
             this.ceilingCheck();
-        }
-        if (!("chrome" in window)) {
-            this.drawAngle();
         }
     }
     floorCheck() {
@@ -387,21 +393,6 @@ class Bill {
     }
 
     animate() {
-        if ("chrome" in window) {
-            this.drawAngle();
-        }
-        /*
-        if (true) {
-            this.elem.style.border = "solid 1px magenta";
-        }
-        */
-    }
-
-    drawAngle() {
-        this.elem.style.willChange = "rotate";
-        let rounded = Math.round((this.angle + Number.EPSILON) * 1000) / 1000;
-        this.elem.style.rotate = rounded + "deg";
-        
         this.elem.style.willChange = "scale";
         if (this.isDead) {
             this.elem.style.scale = "1.0 0.2";
@@ -414,11 +405,19 @@ class Bill {
                 this.elem.style.scale = "1.0 1.0";
             }
         }
+        /*
+        if (true) {
+            this.elem.style.border = "solid 1px magenta";
+        }
+        */
     }
 
     pos() {
-        this.elem.style.willChange = "translate";
-        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px";
+        let rounded = Math.round((this.angle) * 100) / 100;
+        rounded %= 360;
+
+        this.elem.style.willChange = "transform";
+        this.elem.style.transform = "translate(" + this.x + "px, " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) rotate(" + rounded + "deg) " + "skewX(0.001deg)";
     }
 }
 
