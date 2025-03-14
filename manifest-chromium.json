@@ -1,13 +1,8 @@
 {
-    "name": "Bill Kolumbert (DEBUG)",
+    "name": "Bill Kolumbert",
     "description": "Click and drag to fling Bill!\nBill Kolumbert is a fun little guy who you can fling across your screen! (he doesnt mind)",
     "version": "1.1",
     "manifest_version": 3,
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "billkolumbert@letsgoaway.dev"
-        }
-    },
     "web_accessible_resources": [
         {
             "resources": [
@@ -63,9 +58,6 @@
         }
     ],
     "background": {
-        "scripts": [
-            "src/background/main.js"
-        ],
         "service_worker": "src/background/main.js",
         "type": "module"
     },

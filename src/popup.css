@@ -1,0 +1,54 @@
+html,
+body {
+    width: 500px;
+    height: 200px;
+    background-color: #9966ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+@font-face {
+    font-family: "Gooberism";
+    size-adjust: 120%;
+    src:
+        local("BillKolumbertUI"),
+        url("/assets/fonts/BillKolumbertUI.ttf");
+    font-weight: 500;
+}
+
+* {
+    font-family: "Gooberism";
+    text-align: center;
+}
+
+label,
+i,
+h1 {
+    font-weight: normal;
+    color: white;
+    user-select: none;
+}
+
+p {
+    color: white;
+}
+
+
+a {
+    color: deepskyblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: skyblue;
+}
+
+.hidden {
+    display: none;
+}
+
+.antialias {}

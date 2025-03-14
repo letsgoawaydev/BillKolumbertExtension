@@ -166,7 +166,6 @@ class Bill {
         this.animate();
         this.mx = 0;
         this.my = 0;
-
         this.setDance(AUDIO_PLAYING);
     }
 
@@ -211,14 +210,14 @@ class Bill {
     }
 
     dragUpdate(cursorX, cursorY, deltaX, deltaY) {
-        this.x = cursorX - 50;
-        this.y = cursorY - 50;
+        this.x = cursorX - (this.elem.width/2);
+        this.y = cursorY - (this.elem.height/2);
 
         // using clientHeight instead of window.innerWidth to account
         // for scroll bars
 
-        if (this.y + 100 > document.documentElement.clientHeight) {
-            this.y = document.documentElement.clientHeight - 100;
+        if (this.y + this.elem.height > document.documentElement.clientHeight) {
+            this.y = document.documentElement.clientHeight - this.elem.height;
         }
 
         if (0 >= this.y) {
@@ -227,8 +226,8 @@ class Bill {
 
         if (0 >= this.x - 1) {
             this.x = 0;
-        } else if (this.x + 100 >= document.documentElement.clientWidth) {
-            this.x = document.documentElement.clientWidth - 100;
+        } else if (this.x + this.elem.width >= document.documentElement.clientWidth) {
+            this.x = document.documentElement.clientWidth - this.elem.width;
         }
 
         if (!(Math.abs(deltaY) > Math.abs(deltaX))) {
@@ -262,8 +261,8 @@ class Bill {
         }
     }
     floorCheck() {
-        if (this.physY + this.elem.height > window.innerHeight) {
-            this.physY = window.innerHeight - this.elem.height;
+        if (this.physY + this.elem.height > document.documentElement.clientHeight) {
+            this.physY = document.documentElement.clientHeight - this.elem.height;
             this.floorCollide();
         }
         /*
@@ -353,8 +352,8 @@ class Bill {
         if (0 >= this.physX - 1) {
             this.physX = 1;
             this.wallCollide();
-        } else if (this.physX + 100 >= window.innerWidth) {
-            this.physX = window.innerWidth - 100;
+        } else if (this.physX + this.elem.width >= window.innerWidth) {
+            this.physX = window.innerWidth - this.elem.width;
             this.wallCollide();
         }
     }
@@ -388,11 +387,16 @@ class Bill {
                 this.elem.style.scale = "1.0 1.0";
             }
         }
+        /*
+        if (true) {
+            this.elem.style.border = "solid 1px magenta";
+        }
+        */
     }
 
     pos() {
         this.elem.style.willChange = "translate";
-        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 35 : (this.isDance ? 15 : 0))) + "px";
+        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px";
     }
 }
 

@@ -1,1 +1,0 @@
-setTimeout(function() { document.location.reload(); }, 200);

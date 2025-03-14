@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#9966ff" />
+  <title>Bill Kolumbert</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <h1>Bill Kolumbert</h1>
+
+  <div>
+    <label for="can_splat">Can Splat? </label>
+    <input type="checkbox" id="can_splat" name="can_splat" />
+  </div>
+  <div>
+    <label for="collision_plays_sound">Play Collision Sounds </label>
+    <input type="checkbox" id="collision_plays_sound" name="collision_plays_sound" />
+  </div>
+
+
+  <script type="application/javascript" src="browser-polyfill.js"></script>
+  <script type="application/javascript" src="popup.js"></script>
+  <br />
+  <i>You must refresh the page once you have made a change for it to apply.</i>
+  <br />
+  <a href="credits.html">Credits</a>
+  <br />
+  <div class="hidden">
+    <!-- SVG for Disabling Font Smoothing -->
+    <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="crispify">
+          <feComponentTransfer>
+            <feFuncA type="table" tableValues="0 0 0 1" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+  </div>
+</body>
+
+</html>
