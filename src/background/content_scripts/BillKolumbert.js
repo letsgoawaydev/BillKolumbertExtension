@@ -81,7 +81,7 @@ class Bill {
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
 
-        this.transitionFunction = "translate calc(1000ms/30) linear";
+        this.transitionFunction = ("chrome" in window) ? "translate calc(1000ms/30) linear" : "all calc(1000ms/30) linear";
         this.pos();
 
         // use gpu to render
@@ -139,9 +139,19 @@ class Bill {
                 this.setDragging(false);
             }
         }
-
-        if (this.timeUntilPhys >= (1 / 30)) {
-            this.updatePhysics();
+        let framesMissed = Math.floor(this.timeUntilPhys / (1 / 30));
+        if (framesMissed > 60) {
+            framesMissed = 60;
+        }
+        if (framesMissed >= 1) {
+            if ("chrome" in window) {
+                for (let i = 0; i < framesMissed; i++) {
+                    this.updatePhysics();
+                }
+            }
+            else {
+                this.updatePhysics();
+            }
             this.timeUntilPhys = elapsed;
         }
 
@@ -210,8 +220,8 @@ class Bill {
     }
 
     dragUpdate(cursorX, cursorY, deltaX, deltaY) {
-        this.x = cursorX - (this.elem.width/2);
-        this.y = cursorY - (this.elem.height/2);
+        this.x = cursorX - (this.elem.width / 2);
+        this.y = cursorY - (this.elem.height / 2);
 
         // using clientHeight instead of window.innerWidth to account
         // for scroll bars
@@ -258,6 +268,9 @@ class Bill {
             this.floorCheck();
             this.wallCheck();
             this.ceilingCheck();
+        }
+        if (!("chrome" in window)) {
+            this.drawAngle();
         }
     }
     floorCheck() {
@@ -374,8 +387,22 @@ class Bill {
     }
 
     animate() {
+        if ("chrome" in window) {
+            this.drawAngle();
+        }
+        /*
+        if (true) {
+            this.elem.style.border = "solid 1px magenta";
+        }
+        */
+    }
+
+    drawAngle() {
+        this.elem.style.willChange = "rotate";
         let rounded = Math.round((this.angle + Number.EPSILON) * 1000) / 1000;
         this.elem.style.rotate = rounded + "deg";
+        
+        this.elem.style.willChange = "scale";
         if (this.isDead) {
             this.elem.style.scale = "1.0 0.2";
         }
@@ -387,11 +414,6 @@ class Bill {
                 this.elem.style.scale = "1.0 1.0";
             }
         }
-        /*
-        if (true) {
-            this.elem.style.border = "solid 1px magenta";
-        }
-        */
     }
 
     pos() {
@@ -423,7 +445,7 @@ function createBill() {
 let lastTime = document.timeline.currentTime;
 
 
-function update() {
+function update(timestep) {
     if (!document.body.contains(div)) {
         document.body.appendChild(div);
     }
@@ -432,8 +454,12 @@ function update() {
         // do something with response here, not outside the function
         AUDIO_PLAYING = response.result;
     })();
-    let dt = (document.timeline.currentTime - lastTime) / 1000;
-    lastTime = document.timeline.currentTime;
+
+    let time = ("chrome" in window) ? document.timeline.currentTime : timestep;
+
+
+    let dt = (time - lastTime) / 1000;
+    lastTime = time;
     //  console.log(dt);
     bill.update(dt);
     requestAnimationFrame(update);
