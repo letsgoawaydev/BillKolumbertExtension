@@ -1,7 +1,7 @@
 {
   "name": "billkolumbertextension",
   "version": "1.0.0",
-  "description": "",
+  "description": "Click and drag to fling Bill!\nBill Kolumbert is a fun little guy who you can fling across your screen! (he doesnt mind)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

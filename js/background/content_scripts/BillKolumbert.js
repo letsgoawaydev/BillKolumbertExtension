@@ -1,5 +1,5 @@
 const PHYSICS = {
-    GRAVITY: 1.1,
+    GRAVITY: 0.9,
     AIR_RESISTANCE: 0.895,
     FLOOR_ENERGY_TRANSFER: 0.7,
     WALL_BOUNCE_MULTIPLIER: 1.1,
@@ -70,7 +70,6 @@ class Bill {
     my = 0;
     lsy = 0;
     sy = 0;
-    physThread = -1;
     transitionFunction = "";
     collideables = [];
     constructor(div) {
@@ -86,10 +85,10 @@ class Bill {
         this.pos();
 
         // use gpu to render
-        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg) skewX(0.001deg)";
+        this.elem.style.transform = "rotate3d(0, 0, 0, 0deg) skewX(0.00000001deg)";
         this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
-        this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
+
         if ("onpointerrawupdate" in window) {
             document.addEventListener("pointerrawupdate", (ev) => {
                 this.px = ev.x;
@@ -117,29 +116,19 @@ class Bill {
             //   this.gravity += 0 > this.sy ? (this.sy / 2) : (this.sy / 30);
         })
         window.addEventListener("mouseup", (ev) => {
-            window.clearInterval(this.physThread);
-            window.clearTimeout(this.physThread);
             if (this.isDragging) {
                 this.physX = this.x;
                 this.physY = this.y;
             }
             this.setDragging(false);
             this.updatePhysics();
-            this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
         });
-        // shitty workaround because firefox hates set interval
-        if (!("chrome" in window)) {
-            this.elem.addEventListener("transitionend", (ev) => {
-                window.clearInterval(this.physThread);
-                window.clearTimeout(this.physThread);
-                // 40 because otherwise physics are too fast
-                // firefox i beg you PLEASE fix your timing stuff
-                this.physThread = window.setTimeout(() => { this.updatePhysics() }, 1000 / 40)
-                this.updatePhysics();
-            });
-        }
     }
+    timeUntilPhys = 0.00;
+
     update(elapsed) {
+        this.timeUntilPhys += elapsed;
+
         if (this.elem.matches(':hover')) {
             if (this.elem.matches(':active')) {
                 this.elem.style.cursor = "grabbing";
@@ -150,6 +139,12 @@ class Bill {
                 this.setDragging(false);
             }
         }
+
+        if (this.timeUntilPhys >= (1 / 30)) {
+            this.updatePhysics();
+            this.timeUntilPhys = elapsed;
+        }
+
         if (!this.isDragging) {
             this.x = this.physX;
             this.y = this.physY;
@@ -177,13 +172,13 @@ class Bill {
 
     setDragging(b) {
         if (b != this.isDragging) {
-            this.elem.style.transition = b ? "" : this.transitionFunction;
-            // firefox fix AGAIn ffs
-            if (b && !("chrome" in window)) {
-                window.clearInterval(this.physThread);
-                window.clearTimeout(this.physThread);
-                this.physThread = window.setInterval(() => { this.updatePhysics() }, 1000 / 30);
+            if (b == true) {
+                // Deselect so you dont start dragging the text if you have accidentally selected some
+                if (window.getSelection) { window.getSelection().removeAllRanges(); }
+                else if (document.selection) { document.selection.empty(); }
+                this.elem.focus();
             }
+            this.elem.style.transition = b ? "" : this.transitionFunction;
             if (!this.isDance) {
                 this.elem.src = b ? browser.runtime.getURL("assets/images/bill-glow.png") : browser.runtime.getURL("assets/images/bill.png");
             }
@@ -259,7 +254,7 @@ class Bill {
         this.physY += -this.gravity;
 
         if (!this.isDragging) {
-            requestAnimationFrame(() => { this.pos() });
+            this.pos();
 
             this.floorCheck();
             this.wallCheck();
@@ -329,9 +324,9 @@ class Bill {
         if (obj instanceof HTMLElement) {
             let rect = obj.getBoundingClientRect();
 
-            if (rect.y + rect.height > this.physY 
+            if (rect.y + rect.height > this.physY
                 && (isBetween(this.physX, rect.x, rect.x + obj.clientWidth)
-                || isBetween(this.physX + this.elem.width, rect.x, rect.x + obj.clientWidth))
+                    || isBetween(this.physX + this.elem.width, rect.x, rect.x + obj.clientWidth))
                 && (this.physY < (rect.y + rect.height)) && this.physY < rect.y
             ) {
                 this.physY = (rect.y + rect.height) + 1;
@@ -439,4 +434,3 @@ function update() {
     bill.update(dt);
     requestAnimationFrame(update);
 }
-
