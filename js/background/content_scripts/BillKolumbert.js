@@ -12,6 +12,8 @@ function audio(s) {
     return audio;
 }
 
+const isBetween = (value, num1, num2) => value > num1 && value < num2;
+
 const SOUND_SPLAT = audio("splat");
 const SOUND_BOING = audio("boing");
 
@@ -24,6 +26,14 @@ let SETTINGS = {
     COLLISION_PLAYS_SOUND: true,
 }
 
+let AUDIO_PLAYING = false;
+
+let CAN_DANCE = [
+    "open.spotify.com",
+    "soundcloud.com",
+    "music.apple.com"
+]
+
 function load() {
     browser.storage.local.get().then((obj) => {
         if (Object.keys(obj).indexOf("SETTINGS") == -1) {
@@ -32,20 +42,16 @@ function load() {
         else {
             SETTINGS.CAN_SPLAT = obj.SETTINGS.CAN_SPLAT != undefined ? obj.SETTINGS.CAN_SPLAT : false;
             SETTINGS.COLLISION_PLAYS_SOUND = obj.SETTINGS.COLLISION_PLAYS_SOUND != undefined ? obj.SETTINGS.COLLISION_PLAYS_SOUND : true;
+            // Bills Collision sounds make bill go boing and start dancing so dont play them
+            if (CAN_DANCE.indexOf(window.location.host) != -1) {
+                SETTINGS.COLLISION_PLAYS_SOUND = false;
+            }
         }
     });
 }
 
 this.load();
 
-
-let AUDIO_PLAYING = false;
-
-let CAN_DANCE = [
-    "open.spotify.com",
-    "soundcloud.com",
-    "music.apple.com"
-]
 class Bill {
     x = 25;
     y = window.innerHeight / 2;
@@ -66,6 +72,7 @@ class Bill {
     sy = 0;
     physThread = -1;
     transitionFunction = "";
+    collideables = [];
     constructor(div) {
         this.elem.src = browser.runtime.getURL("assets/images/bill.png");
         // you can still drag bill, just not the image
@@ -166,7 +173,6 @@ class Bill {
         this.my = 0;
 
         this.setDance(AUDIO_PLAYING);
-
     }
 
     setDragging(b) {
@@ -257,22 +263,35 @@ class Bill {
 
             this.floorCheck();
             this.wallCheck();
+            this.ceilingCheck();
         }
-        if (0 > this.physY) {
-            this.physY = 1;
-            this.gravity = -this.gravity;
-            if (SETTINGS.COLLISION_PLAYS_SOUND) {
-                let sound = SOUNDS_WALL[Math.floor(Math.random() * SOUNDS_WALL.length)];
-                sound.currentTime = 0;
-                sound.play();
-            }
-        }
-
     }
     floorCheck() {
-        if (this.physY + 100 > window.innerHeight) {
-            this.physY = window.innerHeight - 100;
+        if (this.physY + this.elem.height > window.innerHeight) {
+            this.physY = window.innerHeight - this.elem.height;
             this.floorCollide();
+        }
+        /*
+        document.querySelectorAll("p").forEach((elem) => {
+            this.floorElemCheck(elem);
+        });
+        document.querySelectorAll("img").forEach((elem) => {
+            if (elem != this.elem) {
+                this.floorElemCheck(elem);
+            }
+        });
+        */
+    }
+    floorElemCheck(obj) {
+        if (obj instanceof HTMLElement) {
+            let rect = obj.getBoundingClientRect();
+            if (this.physY + this.elem.height > rect.y
+                && (isBetween(this.physX, rect.x, rect.x + obj.clientWidth)
+                    || isBetween(this.physX + this.elem.width, rect.x, rect.x + obj.clientWidth))
+                && (this.physY + this.elem.height < rect.y + (rect.height / 2))) {
+                this.physY = rect.y - this.elem.height;
+                this.floorCollide();
+            }
         }
     }
     floorCollide() {
@@ -284,6 +303,46 @@ class Bill {
             SOUND_BOING.play();
         }
         this.gravity = -(this.gravity * PHYSICS.FLOOR_ENERGY_TRANSFER);
+    }
+    ceilingCheck() {
+        if (0 > this.physY) {
+            this.physY = 1;
+            this.gravity = -this.gravity;
+            if (SETTINGS.COLLISION_PLAYS_SOUND) {
+                let sound = SOUNDS_WALL[Math.floor(Math.random() * SOUNDS_WALL.length)];
+                sound.currentTime = 0;
+                sound.play();
+            }
+        }
+        /*
+        document.querySelectorAll("p").forEach((elem) => {
+            this.ceilingElemCheck(elem);
+        });
+        document.querySelectorAll("img").forEach((elem) => {
+            if (elem != this.elem) {
+                this.ceilingElemCheck(elem);
+            }
+        });
+        */
+    }
+    ceilingElemCheck(obj) {
+        if (obj instanceof HTMLElement) {
+            let rect = obj.getBoundingClientRect();
+
+            if (rect.y + rect.height > this.physY 
+                && (isBetween(this.physX, rect.x, rect.x + obj.clientWidth)
+                || isBetween(this.physX + this.elem.width, rect.x, rect.x + obj.clientWidth))
+                && (this.physY < (rect.y + rect.height)) && this.physY < rect.y
+            ) {
+                this.physY = (rect.y + rect.height) + 1;
+                this.gravity = -this.gravity;
+                if (SETTINGS.COLLISION_PLAYS_SOUND) {
+                    let sound = SOUNDS_WALL[Math.floor(Math.random() * SOUNDS_WALL.length)];
+                    sound.currentTime = 0;
+                    sound.play();
+                }
+            }
+        }
     }
     splat() {
         if (SETTINGS.COLLISION_PLAYS_SOUND) {
@@ -338,7 +397,7 @@ class Bill {
 
     pos() {
         this.elem.style.willChange = "translate";
-        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 35 : (this.isDance ? 15 : -8))) + "px";
+        this.elem.style.translate = this.x + "px " + (this.y + (this.isDead ? 35 : (this.isDance ? 15 : 0))) + "px";
     }
 }
 
