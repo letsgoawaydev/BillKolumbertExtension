@@ -121,21 +121,21 @@ class Bill {
                 this.physY = this.y;
             }
             this.setDragging(false);
-            this.updatePhysics();
         });
 
         if ("chrome" in window) {
-            this.chromeUpdate();
+            window.setInterval(() => {
+                this.chromeUpdate();
+            }, 1000 / 30);
+            this.updatePhysics();
         }
     }
 
+    
     chromeUpdate() {
-        requestAnimationFrame(() => {
+        requestIdleCallback(()=>{
             this.updatePhysics();
         });
-        window.setTimeout(() => {
-            this.chromeUpdate();
-        }, 1000 / 30);
     }
 
     timeUntilPhys = 0.00;
@@ -178,10 +178,10 @@ class Bill {
             if (Math.abs(this.speed) >= 1 || this.isDragging) {
                 this.angle += this.speed * (1 * elapsed * 30);
             } else {
+                this.angle = this.angle % 360;
                 this.angle -= this.angle * (0.2 * elapsed * 30);
             }
         }
-        this.angle = this.angle % 360;
         this.animate();
         this.mx = 0;
         this.my = 0;
@@ -414,8 +414,7 @@ class Bill {
 
     pos() {
         let rounded = Math.round((this.angle) * 100) / 100;
-        rounded %= 360;
-
+        
         this.elem.style.willChange = "transform";
         this.elem.style.transform = "translate(" + this.x + "px, " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) rotate(" + rounded + "deg) " + "skewX(0.001deg)";
     }
