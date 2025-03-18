@@ -133,7 +133,7 @@ class Bill {
 
     
     chromeUpdate() {
-        requestIdleCallback(()=>{
+        requestAnimationFrame(()=>{
             this.updatePhysics();
         });
     }
