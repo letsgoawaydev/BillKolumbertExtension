@@ -261,7 +261,7 @@ class Bill {
 
         this.lastPhysTime = document.timeline.currentTime;
     }
-    
+
     lastX = 0;
     lastY = 0;
     lastPhysTime = 0;
@@ -470,7 +470,6 @@ function update(timestep) {
     })();
 
     let time = ("chrome" in window) ? document.timeline.currentTime : timestep;
-
 
     let dt = (time - lastTime) / 1000;
     lastTime = time;
