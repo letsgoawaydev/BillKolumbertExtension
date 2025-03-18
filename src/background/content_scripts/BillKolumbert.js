@@ -80,13 +80,13 @@ class Bill {
         this.elem.style.position = "fixed";
         this.elem.style.userSelect = "none";
         this.elem.style.imageRendering = "pixelated";
-
+        this.elem.style.transformOrigin = "center";
         this.transitionFunction = "transform calc(1000ms/30) linear";
         this.pos();
 
         // use gpu to render
         this.elem.style.transform = "skewX(0.0001deg)";
-        this.elem.style.transition = this.transitionFunction;
+        //    this.elem.style.transition = this.transitionFunction;
         div.appendChild(this.elem);
 
         if ("onpointerrawupdate" in window) {
@@ -131,11 +131,9 @@ class Bill {
         }
     }
 
-    
+
     chromeUpdate() {
-        requestAnimationFrame(()=>{
-            this.updatePhysics();
-        });
+        this.updatePhysics();
     }
 
     timeUntilPhys = 0.00;
@@ -178,9 +176,9 @@ class Bill {
             if (Math.abs(this.speed) >= 1 || this.isDragging) {
                 this.angle += this.speed * (1 * elapsed * 30);
             } else {
-                this.angle = this.angle % 360;
                 this.angle -= this.angle * (0.2 * elapsed * 30);
             }
+            this.angle = this.angle % 360;
         }
         this.animate();
         this.mx = 0;
@@ -196,7 +194,7 @@ class Bill {
                 else if (document.selection) { document.selection.empty(); }
                 this.elem.focus();
             }
-            this.elem.style.transition = b ? "" : this.transitionFunction;
+            //this.elem.style.transition = b ? "" : this.transitionFunction;
             if (!this.isDance) {
                 this.elem.src = b ? browser.runtime.getURL("assets/images/bill-glow.png") : browser.runtime.getURL("assets/images/bill.png");
             }
@@ -258,12 +256,21 @@ class Bill {
         if (true && 0 > this.gravity) {
             this.gravity /= 2;
         }
-        this.pos();
+        this.lastX = this.x;
+        this.lastY = this.y;
+
+        this.lastPhysTime = document.timeline.currentTime;
     }
+    
+    lastX = 0;
+    lastY = 0;
+    lastPhysTime = 0;
     updatePhysics() {
         this.speed *= PHYSICS.AIR_RESISTANCE;
         if (!this.isDragging) {
             this.gravity -= PHYSICS.GRAVITY;
+            this.lastX = this.physX;
+            this.lastY = this.physY;
         }
         else {
             this.gravity *= PHYSICS.AIR_RESISTANCE;
@@ -272,12 +279,12 @@ class Bill {
         this.physY += -this.gravity;
 
         if (!this.isDragging) {
-            this.pos();
-
             this.floorCheck();
             this.wallCheck();
             this.ceilingCheck();
         }
+
+        this.lastPhysTime = document.timeline.currentTime;
     }
     floorCheck() {
         if (this.physY + this.elem.height > document.documentElement.clientHeight) {
@@ -405,18 +412,27 @@ class Bill {
                 this.elem.style.scale = "1.0 1.0";
             }
         }
-        /*
-        if (true) {
-            this.elem.style.border = "solid 1px magenta";
-        }
-        */
+        this.pos();
     }
 
     pos() {
-        let rounded = Math.round((this.angle) * 100) / 100;
-        
-        this.elem.style.willChange = "transform";
-        this.elem.style.transform = "translate(" + this.x + "px, " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) rotate(" + rounded + "deg) " + "skewX(0.001deg)";
+
+        let t = (document.timeline.currentTime - this.lastPhysTime) / (1000 / 30);
+
+        let lerpX = this.lerp(this.lastX, this.physX, t);
+        let lerpY = this.lerp(this.lastY, this.physY, t);
+
+        let rounded = Math.round((this.angle) * 1000) / 1000;
+        requestAnimationFrame(() => {
+            this.elem.style.willChange = "transform";
+            this.elem.style.transform = "translate(" + lerpX + "px, " + (lerpY + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) rotate(" + rounded + "deg) " + "skewX(0.001deg)";
+        });
+        //        this.elem.style.transform = "translate(" + this.x + "px, " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) skewX(0.001deg)";
+
+    }
+
+    lerp(x, y, t) {
+        return x * (1 - t) + y * t;
     }
 }
 
