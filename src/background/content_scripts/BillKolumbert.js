@@ -137,8 +137,9 @@ class Bill {
     }
 
     timeUntilPhys = 0.00;
-
+    lastElapsed = 0.00;
     update(elapsed) {
+        this.lastElapsed = elapsed;
         if (this.elem.matches(':hover')) {
             if (this.elem.matches(':active')) {
                 this.elem.style.cursor = "grabbing";
@@ -417,7 +418,7 @@ class Bill {
 
     pos() {
 
-        let t = (document.timeline.currentTime - this.lastPhysTime) / (1000 / 30);
+        let t = ((document.timeline.currentTime + this.lastElapsed) - (this.lastPhysTime - this.lastElapsed)) / (1000 / 30);
 
         let lerpX = this.lerp(this.lastX, this.physX, t);
         let lerpY = this.lerp(this.lastY, this.physY, t);
