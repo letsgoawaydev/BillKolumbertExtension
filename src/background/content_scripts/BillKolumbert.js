@@ -138,7 +138,15 @@ class Bill {
 
     timeUntilPhys = 0.00;
     lastElapsed = 0.00;
+
     update(elapsed) {
+        this.windowDeltaX = window.screenLeft - this.lastWindowX;
+        this.windowDeltaY = window.screenTop - this.lastWindowY;
+        this.lastWindowX = window.screenLeft;
+        this.lastWindowY = window.screenTop;
+        this.physX += this.windowDeltaX;
+        this.physY += this.windowDeltaY;
+
         this.lastElapsed = elapsed;
         if (this.elem.matches(':hover')) {
             if (this.elem.matches(':active')) {
@@ -266,7 +274,18 @@ class Bill {
     lastX = 0;
     lastY = 0;
     lastPhysTime = 0;
+
+    lastWindowX = window.screenX;
+    windowDeltaX = 0;
+
+    lastWindowY = window.screenY;
+    windowDeltaY = 0;
+
     updatePhysics() {
+       // this.speed += this.windowDeltaX / 60;
+       // this.gravity += -(this.windowDeltaY) / 60;
+        
+
         this.speed *= PHYSICS.AIR_RESISTANCE;
         if (!this.isDragging) {
             this.gravity -= PHYSICS.GRAVITY;
@@ -379,8 +398,8 @@ class Bill {
         if (0 >= this.physX - 1) {
             this.physX = 1;
             this.wallCollide();
-        } else if (this.physX + this.elem.width >= window.innerWidth) {
-            this.physX = window.innerWidth - this.elem.width;
+        } else if (this.physX + this.elem.width >= document.documentElement.clientWidth) {
+            this.physX = document.documentElement.clientWidth - this.elem.width;
             this.wallCollide();
         }
     }
@@ -401,18 +420,6 @@ class Bill {
     }
 
     animate() {
-        this.elem.style.willChange = "scale";
-        if (this.isDead) {
-            this.elem.style.scale = "1.0 0.2";
-        }
-        else {
-            if (this.isDance) {
-                this.elem.style.scale = "1.5 1.5";
-            }
-            else {
-                this.elem.style.scale = "1.0 1.0";
-            }
-        }
         this.pos();
     }
 
@@ -426,7 +433,21 @@ class Bill {
         let rounded = Math.round((this.angle) * 1000) / 1000;
         requestAnimationFrame(() => {
             this.elem.style.willChange = "transform";
-            this.elem.style.transform = "translate(" + lerpX + "px, " + (lerpY + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) rotate(" + rounded + "deg) " + "skewX(0.001deg)";
+            let transform = "translate(" + lerpX + "px, " + (lerpY + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) "
+            transform += "rotate(" + rounded + "deg) ";
+            transform += "skewX(0.001deg) ";
+            if (this.isDead) {
+                transform += "scale(1.0, 0.2)";
+            }
+            else {
+                if (this.isDance) {
+                    transform += "scale(1.5, 1.5)";
+                }
+                else {
+                    transform += "scale(1.0, 1.0)";
+                }
+            }
+            this.elem.style.transform = transform;
         });
         //        this.elem.style.transform = "translate(" + this.x + "px, " + (this.y + (this.isDead ? 43 : (this.isDance ? -15 : 0))) + "px) skewX(0.001deg)";
 
