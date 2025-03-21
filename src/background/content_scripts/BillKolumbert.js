@@ -165,9 +165,9 @@ class Bill {
                 framesMissed = 60;
             }
             if (framesMissed >= 1) {
-                for (let i = 0; i < framesMissed; i++) {
+                //for (let i = 0; i < framesMissed; i++) {
                     this.updatePhysics();
-                }
+                //}
                 this.timeUntilPhys = elapsed;
             }
         }
